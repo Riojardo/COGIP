@@ -1,6 +1,8 @@
 <?php
+
 declare(strict_types=1);
-class Invoices {
+class Invoices
+{
     private string $ref;
     private string $created_at;
     private string $updated_at;
@@ -14,14 +16,15 @@ class Invoices {
         $this->date_due = $date_due;
     }
 
-    public static function getAllWithCompanyName($limit) {
+    public static function getAllWithCompanyName($limit)
+    {
         $pdo = connect_db();
 
         $baseSql = 'SELECT invoices.*, companies.name as company_name ';
         $baseSql .= 'FROM invoices INNER JOIN companies ON invoices.id_company = companies.id ';
         $baseSql .= 'ORDER BY created_at DESC ';
 
-        if($limit > -1) {
+        if ($limit > -1) {
             $invoicesQuery = $pdo->prepare($baseSql . 'LIMIT :limit ');
             $invoicesQuery->bindParam(':limit', $limit, PDO::PARAM_INT);
             $invoicesQuery->execute();
@@ -36,16 +39,16 @@ class Invoices {
     public static function insertInvoices($ref, $id_company, $price, $date_due)
     {
         $pdo = connect_db();
-    
+
         $sql = 'INSERT INTO invoices (ref, id_company, price, date_due) VALUES (:ref, :id_company, :price, :date_due)';
-    
+
         $stmt = $pdo->prepare($sql);
-    
+
         $stmt->bindParam(':ref', $ref, PDO::PARAM_STR);
         $stmt->bindParam(':id_company', $id_company, PDO::PARAM_INT);
         $stmt->bindParam(':price', $price, PDO::PARAM_INT);
         $stmt->bindParam(':date_due', $date_due, PDO::PARAM_STR);
-    
+
         return $stmt->execute();
     }
 }

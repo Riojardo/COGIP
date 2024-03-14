@@ -1,6 +1,8 @@
 <?php
+
 declare(strict_types=1);
-class Roles {
+class Roles
+{
     private string $name;
     private string $created_at;
     private string $updated_at;
@@ -10,14 +12,14 @@ class Roles {
         $this->name = $name;
         $this->created_at = $created_at;
         $this->updated_at = $updated_at;
-    
     }
-    public static function getAll($limit) {
+    public static function getAll($limit)
+    {
         $pdo = connect_db();
 
         $baseSql = 'SELECT * FROM roles';
 
-        if($limit > -1) {
+        if ($limit > -1) {
             $rolesQuery = $pdo->prepare($baseSql . 'LIMIT :limit ');
             $rolesQuery->bindParam(':limit', $limit, PDO::PARAM_INT);
             $rolesQuery->execute();

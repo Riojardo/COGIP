@@ -8,7 +8,8 @@ require_once('controllers/rolesControllers.php');
 require_once('controllers/typesControllers.php');
 require_once('controllers/UsersControllers.php');
 
-function sendJson($data) {
+function sendJson($data)
+{
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode($data);
     exit();

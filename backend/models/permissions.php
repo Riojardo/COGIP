@@ -1,6 +1,8 @@
 <?php
+
 declare(strict_types=1);
-class Permissions {
+class Permissions
+{
     private string $name;
     private string $created_at;
     private string $updated_at;
@@ -10,14 +12,14 @@ class Permissions {
         $this->name = $name;
         $this->created_at = $created_at;
         $this->updated_at = $updated_at;
-    
     }
-    public static function getAll($limit) {
+    public static function getAll($limit)
+    {
         $pdo = connect_db();
 
         $baseSql = 'SELECT * FROM permissions';
 
-        if($limit > -1) {
+        if ($limit > -1) {
             $permissionsQuery = $pdo->prepare($baseSql . 'LIMIT :limit ');
             $permissionsQuery->bindParam(':limit', $limit, PDO::PARAM_INT);
             $permissionsQuery->execute();
@@ -27,7 +29,7 @@ class Permissions {
 
         $permissions = $permissionsQuery->fetchAll(PDO::FETCH_ASSOC);
 
-       
+
 
         return $permissions;
     }

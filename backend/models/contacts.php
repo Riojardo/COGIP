@@ -1,6 +1,8 @@
 <?php
+
 declare(strict_types=1);
-class Contacts {
+class Contacts
+{
     private string $name;
     private string $email;
     private string $phone;
@@ -16,7 +18,7 @@ class Contacts {
         $this->updated_at = $updated_at;
     }
 
-    public static function getAllContactsWithCompanyName($limit) 
+    public static function getAllContactsWithCompanyName($limit)
     {
         $pdo = connect_db();
 
@@ -24,7 +26,7 @@ class Contacts {
         $baseSql .= 'FROM contacts INNER JOIN companies ON contacts.company_id = companies.id ';
         $baseSql .= 'ORDER BY created_at DESC ';
 
-        if($limit > -1) {
+        if ($limit > -1) {
             $contactsQuery = $pdo->prepare($baseSql . 'LIMIT :limit ');
             $contactsQuery->bindParam(':limit', $limit, PDO::PARAM_INT);
             $contactsQuery->execute();
@@ -37,18 +39,19 @@ class Contacts {
         return $contacts;
     }
 
-    public static function insertContacts($name, $email, $phone, $company_id){
-            $pdo = connect_db();
+    public static function insertContacts($name, $email, $phone, $company_id)
+    {
+        $pdo = connect_db();
 
-            $sql = 'INSERT INTO contacts (name, email, phone, company_id) VALUES (:name, :email, :phone, :company_id)';
+        $sql = 'INSERT INTO contacts (name, email, phone, company_id) VALUES (:name, :email, :phone, :company_id)';
 
-            $stmt = $pdo->prepare($sql);
+        $stmt = $pdo->prepare($sql);
 
-            $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-            $stmt->bindParam(':mail', $email, PDO::PARAM_STR);
-            $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
-            $stmt->bindParam(':company_id', $company_id, PDO::PARAM_INT);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $stmt->bindParam(':company_id', $company_id, PDO::PARAM_INT);
 
-            return $stmt->execute();
-        } 
+        return $stmt->execute();
+    }
 }
