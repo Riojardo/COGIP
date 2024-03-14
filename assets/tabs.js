@@ -168,7 +168,7 @@ async function afficherAllContacts() {
     const table = document.getElementById('allContacts').querySelector('tbody')
 
     // Va chercher les données depuis PHP.
-    const AllContacts = await getDataLimit('./backend/api.php/contacts', 10);
+    const AllContacts = await getDataLimit('./backend/api.php/contacts');
 
     // Crée les lignes dans la table.
     AllContacts.forEach(all_contacts => {
@@ -210,7 +210,7 @@ async function afficherAllCompanies() {
     const table = document.getElementById('allCompanies').querySelector('tbody')
 
     // Va chercher les données depuis PHP.
-    const AllCompanies = await getDataLimit('./backend/api.php/companies', 10);
+    const AllCompanies = await getDataLimit('./backend/api.php/companies');
 
     // Crée les lignes dans la table.
     AllCompanies.forEach(all_companies => {

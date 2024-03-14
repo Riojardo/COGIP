@@ -1,5 +1,6 @@
 <?php 
 require_once('models/date.php');
+require_once('models/roles.php');
 class RolesController {
     
     public function getAll_roles() {

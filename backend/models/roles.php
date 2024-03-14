@@ -18,7 +18,7 @@ class Roles {
         $baseSql = 'SELECT * FROM roles';
 
         if($limit > -1) {
-            $rolesQuery = $pdo->prepare($baseSql . 'LIMIT :limit ');
+            $rolesQuery = $pdo->prepare($baseSql . ' LIMIT :limit ');
             $rolesQuery->bindParam(':limit', $limit, PDO::PARAM_INT);
             $rolesQuery->execute();
         } else {
