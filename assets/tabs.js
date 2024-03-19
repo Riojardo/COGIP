@@ -257,14 +257,18 @@ async function afficherLastContacts_dashboard() {
 
       const contactId = last_contact.id;
       console.log(contactId);
+
       const updateBtn = rows[index].querySelector(".updateBtn a");
-      updateBtn.href = `http://localhost/COGIP/update-contacts.php?id=${contactId}`;
+      updateBtn.href = `./update-contacts.php?id=${contactId}`;
+
       const deleteBtn = rows[index].querySelector(".deleteBtn a");
-      deleteBtn.id = contactId;
+      deleteBtn.href = `./backend/api.php/contact_delete?id=${contactId}`;
+
       console.log(contactId);
     }
   });
 }
+
 async function afficherLastCompanies_dashboard() {
   const table = document
     .getElementById("lastCompanies_dashboard")
