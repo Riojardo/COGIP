@@ -1,8 +1,8 @@
 <?php
-require_once('models/connexion.php');
-require_once('models/date.php');
-require_once('models/contacts.php');
-require_once('models/validation.php');
+require_once(__DIR__ . '/../models/connexion.php');
+require_once(__DIR__ . '/../models/date.php');
+require_once(__DIR__ . '/../models/contacts.php');
+require_once(__DIR__ . '/../models/validation.php');
 class ContactsController
 {
     public function getAll_contacts()
@@ -37,7 +37,7 @@ class ContactsController
             ) {
 
                 $res = Contacts::insertContacts($name, $email, $phone, $company_id);
-                header('Location: http://localhost/COGIP/dashboard-contacts.html');
+                header('Location: http://localhost:8080/COGIP/dashboard-contacts.html');
                 exit();
             } else {
                 echo "veuillez remplir tous les champs du formulaire avec les donnés adéquate <br>";
@@ -51,5 +51,41 @@ class ContactsController
             print('405 Method Not Allowed biz biz');
             exit();
         }
+    }
+
+    public function get_contactByID($id)
+    {
+        $pdo = connect_db();
+
+        $sql = 'SELECT name, email, phone FROM contacts WHERE id = :id';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $contact = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $contact ? $contact : null;
+    }
+
+    public function update_contact($name, $email, $phone, $company_id, $contactId)
+    {
+
+        $isUpdated = Contacts::update_Contacts($name, $email, $phone, $company_id, $contactId);
+
+        if ($isUpdated) {
+            header('Location: ./COGIP/dashboard');
+            exit();
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteContact()
+    {
+        $contactId = intval($_GET['id']);
+        Contacts::deleteContact($contactId);
+        header('Location: ../../dashboard.html');
+        exit();
     }
 }

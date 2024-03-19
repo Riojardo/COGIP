@@ -1,9 +1,8 @@
 <?php
-require_once('models/connexion.php');
-require_once('models/date.php');
-require_once('models/invoices.php');
-require_once('models/validation.php');
-
+require_once(__DIR__ . '/../models/connexion.php');
+require_once(__DIR__ . '/../models/date.php');
+require_once(__DIR__ . '/..//models/invoices.php');
+require_once(__DIR__ . '/../models/validation.php');
 class InvoicesController
 {
     public function getAll_invoices()
