@@ -241,7 +241,9 @@ async function afficherAllCompanies() {
 }
 
 async function afficherLastContacts_dashboard() {
-  const table = document.getElementById("lastContacts_dashboard").querySelector("tbody");
+  const table = document
+    .getElementById("lastContacts_dashboard")
+    .querySelector("tbody");
   const lastContacts = await getDataLimit("./backend/api.php/contacts", 5);
   const rows = table.querySelectorAll("tr");
 
@@ -259,7 +261,7 @@ async function afficherLastContacts_dashboard() {
       console.log(contactId);
 
       const updateBtn = rows[index].querySelector(".updateBtn a");
-      updateBtn.href =` ./update-contacts.php?id=${contactId}`;
+      updateBtn.href = ` ./update-contacts.php?id=${contactId}`;
 
       const deleteBtn = rows[index].querySelector(".deleteBtn a");
       deleteBtn.href = `./backend/api.php/contact_delete?id=${contactId}`;
@@ -278,7 +280,6 @@ async function afficherLastCompanies_dashboard() {
 
   const rows = table.querySelectorAll("tr");
 
-
   lastCompanies.forEach((last_company, index) => {
     if (index < rows.length) {
       const cells = rows[index].querySelectorAll("td");
@@ -289,9 +290,9 @@ async function afficherLastCompanies_dashboard() {
       cells[4].textContent = last_company.updated_at;
 
       const compayId = last_company.id;
-        const updateBtn = rows[index].querySelector(".updateBtn a");
-        updateBtn.href = `./update_companies.php?id=${compayId}`;
-        const deleteBtn= rows[index].querySelector(".deleteBtn a");
+      const updateBtn = rows[index].querySelector(".updateBtn a");
+      updateBtn.href = `./update_companies.php?id=${compayId}`;
+      const deleteBtn = rows[index].querySelector(".deleteBtn a");
     }
   });
 }
